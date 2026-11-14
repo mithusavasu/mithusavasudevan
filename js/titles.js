@@ -68,7 +68,7 @@
     { id: 'series', title: 'Mithusa: The Series', art: 'series', kind: 'MV Original · Documentary', year: '2024–', rating: 'CS-29', dur: '3 Seasons', match: 98,
       genres: ['Engineering', 'Coming-of-code', 'Feel-good'], cast: ['Python', 'SQL', 'Java', 'C', 'React', 'Flask', 'Arduino'],
       desc: "A third-year Computer Science student at TMU (BSc Hons, Co-op, Minor in Business Essentials) builds robots, databases and machine-learning experiments, and documents the whole thing. Currently streaming: reinforcement learning for a robot arm, and a hunt for a Summer 2027 co-op.",
-      episodes: [['S1 · 2024–25', 'Hello, TMU', 'First code, first data structures, and mentoring with Women in CS.'], ['S2 · 2025–26', 'Hardware gets real', 'Research Developer at the CPS Lab: Arduino robots in C and Python. Analytics for MSF. Data at BMO.'], ['S3 · 2026–27', 'Machines that learn', 'QueueCare, ShelfSense, an RL robot arm, and a learning roadmap to ML engineering. You are here.']] },
+      episodes: [['S1 · 2024–25', 'Hello, TMU', 'First code, first data structures, and mentoring with Women in CS.'], ['S2 · 2025–26', 'Hardware gets real', 'Research Developer at the CPS Lab: Arduino robots in C and Python. Analytics for MSF. Data at BMO.'], ['S3 · 2026–27', 'Machines that learn', 'QueueCare, ShelfSense, an RL robot arm, joining Toronto Met Formula Racing, and a learning roadmap to ML engineering. You are here.']] },
 
     { id: 'pitlab', title: 'Pit Lab', art: 'car', kind: 'MV Original Series', year: 2026, rating: 'In production', dur: '6 Episodes', match: 99, progress: 0.18,
       genres: ['Machine learning', 'Motorsport', 'Data'], cast: ['Python', 'SQL', 'PyTorch', 'RL', 'RAG'],
@@ -133,13 +133,16 @@
       desc: "I love trying new things: new places, new hobbies, and especially new tech. That curiosity is how I ended up in robotics, data and ML." },
     { id: 'f1', title: 'F1 Race Weekends', art: 'flag', kind: 'Sport', year: 'Every season', rating: 'Lights out', dur: '24 Rounds', match: 99,
       genres: ['Motorsport', 'Cars'], cast: ['Strategy', 'Tires', 'Telemetry'],
-      desc: "I've always loved cars, and F1 is where data, physics and engineering meet at 300 km/h. It's why half my ML projects have race cars in them." },
+      desc: "I've always loved cars, and F1 is where data, physics and engineering meet at 300 km/h. It's why half my ML projects have race cars in them, and why I joined Toronto Met Formula Racing in November 2026." },
 
     { id: 'docu', title: 'The Evolution of Tech (and Me)', art: 'docu', kind: 'Docuseries', year: '2024–', rating: 'Doc', dur: '6 Episodes', match: 99, progress: 0.8,
       genres: ['Documentary', 'Technology'], cast: ['Every tool I\'ve picked up along the way'],
       desc: "I've always been drawn to whatever is next in tech, and I like being part of how it evolves. Each episode is a stage in how my own toolkit grew.",
       episodes: [['E1', 'Hello, World', 'First code at TMU: Python, C, data structures.'], ['E2', 'Teaching it forward', 'Mentoring and workshops for 50+ people with Women in CS.'], ['E3', 'Hardware gets real', 'Arduino robots, sensors and motors at the CPS Lab.'], ['E4', 'Data everywhere', 'Client records at BMO, analytics at MSF, SQL databases at school.'], ['E5', 'Shipping with teams', 'Co-opConnect and QueueCare: Agile, testing, product ownership.'], ['E6', 'Machines that learn', 'Reinforcement learning, neural nets, and this very website.']] },
 
+    { id: 'x-tmfr', title: 'General Member', art: 'job', icon: '🏎️', kind: 'Toronto Metropolitan Formula Racing (TMFR)', year: 2026, rating: 'New', dur: 'Nov 2026 – Present', match: 99,
+      genres: ['Motorsport', 'Engineering', 'Team'], cast: ['Formula SAE', 'Race car engineering', 'Teamwork'],
+      desc: "In November 2026 I joined Toronto Metropolitan Formula Racing (TMFR), TMU's student team that designs and builds a formula-style race car for Formula SAE competitions, as a general member. The F1 obsession now comes with a real car and a real team." },
     { id: 'x-cps', title: 'Research Developer', art: 'job', icon: '🤖', kind: 'TMU Computational Public Safety Lab', year: '2025–', rating: 'Current', dur: 'Jun 2025 – Present', match: 99,
       genres: ['Robotics', 'Research'], cast: ['C', 'Python', 'Arduino', 'Sensors', 'Motors', 'RL'],
       desc: 'I develop and test Arduino-based robotic systems in C and Python, integrating microcontrollers, sensors and motors and troubleshooting hardware and software. Now working on reinforcement learning for a robot arm.' },
@@ -162,10 +165,10 @@
     top10:  { title: 'Top 10 Projects in Toronto Today', ids: ['pitlab', 'rlarm', 'queuecare', 'shelfsense', 'coop', 'neurosleep', 'smartcart', 'matilda'], top10: true },
     cont:   { title: 'Continue Watching for {p}', ids: ['pitlab', 'rlarm', 'docu'] },
     play:   { title: 'Interactive · Play in your browser', ids: ['sql', 'evo', 'pickplace', 'setup', 'library'] },
-    garage: { title: 'Robotics & Cars', ids: ['rlarm', 'evo', 'matilda', 'setup', 'pitlab', 'f1'] },
+    garage: { title: 'Robotics & Cars', ids: ['x-tmfr', 'rlarm', 'evo', 'matilda', 'setup', 'pitlab', 'f1'] },
     comfort:{ title: 'Off the Clock · Comfort Watches & Loves', ids: ['pp', 'interstellar', 'novels', 'lens', 'explore', 'f1'] },
     docu:   { title: 'Docuseries · The Evolution of Tech (and Me)', ids: ['docu', 'series'] },
-    exp:    { title: 'Experience · Limited Series', ids: ['x-cps', 'x-msf', 'x-space', 'x-bmo', 'x-wics'] }
+    exp:    { title: 'Experience · Limited Series', ids: ['x-tmfr', 'x-cps', 'x-msf', 'x-space', 'x-bmo', 'x-wics'] }
   };
 
   const PROFILES = {

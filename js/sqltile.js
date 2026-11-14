@@ -7,6 +7,7 @@
   const SCHEMA = `
   CREATE TABLE experience (role TEXT, org TEXT, start TEXT, end_date TEXT, kind TEXT);
   INSERT INTO experience VALUES
+    ('General Member', 'Toronto Metropolitan Formula Racing (TMFR)', '2026-11', NULL, 'motorsport'),
     ('Research Developer', 'TMU Computational Public Safety Lab', '2025-06', NULL, 'research'),
     ('Digital Performance Analyst', 'TMU Friends of MSF / Doctors Without Borders', '2025-08', NULL, 'analytics'),
     ('Research Lead', 'Frontier Space Technology, TMU', '2025-08', NULL, 'leadership'),
