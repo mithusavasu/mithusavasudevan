@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MITHUSA · Now Streaming</title>
+  <meta name="description" content="Mithusa Vasudevan, CS @ TMU. A streaming-style portfolio: playable robot, ML and SQL demos, projects, favourite films and a transforming car-bot that answers your questions.">
+  <meta property="og:title" content="MITHUSA · Now Streaming">
+  <meta property="og:description" content="Pick a profile. Press play. Robots, race cars, SQL and films.">
+  <meta name="theme-color" content="#141414">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23141414'/%3E%3Ctext x='32' y='46' text-anchor='middle' font-family='Impact,sans-serif' font-size='38' fill='%23e11d2e'%3EMV%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Fraunces:ital,opsz,wght@1,9..144,500;1,9..144,600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="skip" href="#rows">Skip to content</a>
+  <canvas id="follower" class="follower" aria-hidden="true"></canvas>
+
+  <!-- ============ INTRO ============ -->
+  <div class="intro" id="intro" role="presentation">
+    <div class="logo"><span>M</span><span>V</span></div>
+    <p class="studio">STUDIOS</p>
+    <p class="skip-intro">click to skip</p>
+  </div>
+
+  <!-- ============ PROFILES ============ -->
+  <div class="profiles" id="profiles" hidden role="dialog" aria-modal="true" aria-labelledby="whoTitle">
+    <h1 id="whoTitle">Who's watching?</h1>
+    <div class="profile-grid" id="profileGrid"></div>
+    <p class="profile-note">Each profile shows a different side of me.</p>
+  </div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a class="wordmark" href="#top" aria-label="Home">MITHUSA</a>
+    <nav class="links" aria-label="Rows">
+      <a href="#top">Home</a>
+      <a href="#row-play" data-goto="play">Play</a>
+      <a href="#row-top10" data-goto="top10">Projects</a>
+      <a href="#row-comfort" data-goto="comfort">Off the Clock</a>
+      <a href="#row-exp" data-goto="exp">Experience</a>
+      <a href="#row-docu" data-goto="docu">Docuseries</a>
+    </nav>
+    <div class="nav-right">
+      <div class="search" id="search">
+        <button class="icon-btn" id="searchBtn" aria-label="Search titles"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="M15.5 15.5 L21 21" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+        <label class="sr" for="searchInput">Search</label>
+        <input id="searchInput" placeholder="Titles, skills, genres" autocomplete="off">
+      </div>
+      <button class="icon-btn car-toggle" id="followerBtn" aria-label="Toggle the cursor race car" aria-pressed="true">🏎️</button>
+      <button class="avatar-btn" id="switchProfile" aria-label="Switch profile"><span class="avatar" id="navAvatar">💼</span><span class="caret">▾</span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- ============ HERO ============ -->
+    <section class="hero" aria-label="Featured">
+      <div class="hero-art" id="heroArt"></div>
+      <div class="hero-fade"></div>
+      <div class="hero-content">
+        <p class="hero-kind"><span class="badge-lg">MV</span><span id="heroKind"></span></p>
+        <h1 id="heroTitle">Mithusa: The Series</h1>
+        <p class="hero-meta" id="heroMeta"></p>
+        <p class="hero-desc" id="heroDesc"></p>
+        <div class="hero-btns">
+          <button class="btn play" id="heroPlay">▶ <span>Play</span></button>
+          <button class="btn info" id="heroInfo">ⓘ More Info</button>
+        </div>
+      </div>
+      <div class="hero-age"><span>CS-29</span></div>
+    </section>
+
+    <div class="results" id="results" aria-live="polite"></div>
+    <div class="rows" id="rows"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="foot-links">
+      <a href="mailto:mvasudevan@torontomu.ca">Contact · mvasudevan@torontomu.ca</a>
+      <a href="https://github.com/mithusavasu" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/mithusa-vasudevan/" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="#" onclick="window.App.openTitle('sql');return false;">Résumé (SQL edition)</a>
+    </div>
+    <p>Hand-built with HTML, CSS &amp; JavaScript. No frameworks. Every demo runs in your browser. © <span id="year">2026</span> Mithusa Vasudevan</p>
+    <p class="fine">A personal portfolio styled after streaming apps; not affiliated with any streaming service.</p>
+  </footer>
+
+  <!-- ============ DEMO STAGE (moved into the modal when playing) ============ -->
+  <div id="demos" hidden>
+    <div class="demo" data-demo="arm">
+      <div class="stage"><canvas id="armCanvas" aria-label="Robot arm moving test tubes into a rack. Hover to control it." role="img"></canvas></div>
+      <div class="readout mono"><span>θ₁ <b id="armQ1">0°</b></span><span>θ₂ <b id="armQ2">0°</b></span><span>mode <b id="armMode">auto</b></span><span>placed <b id="armPlaced">0</b></span><span class="hint-inline">👉 hover over the arm to take control</span></div>
+    </div>
+
+    <div class="demo" data-demo="sql">
+      <div class="presets" id="sqlPresets">
+        <button data-q="exp">Experience</button><button data-q="now">What am I doing now?</button><button data-q="proj">Projects</button>
+        <button data-q="py">Projects using Python</button><button data-q="skills">Skills by category</button><button data-q="fav">Off the clock 🎬</button><button data-q="schema">Show tables</button>
+      </div>
+      <div class="sql-card">
+        <div class="term-bar"><i></i><i></i><i></i><span class="mono">resume.db: sqlite3</span></div>
+        <div class="editor"><label class="sr" for="sqlInput">SQL query</label><textarea id="sqlInput" spellcheck="false" rows="4"></textarea><button class="btn red sm run" id="sqlRun">Run ▸</button></div>
+        <div class="result-wrap"><div id="sqlOut" class="sql-out" aria-live="polite"><p class="muted mono">Loading SQLite…</p></div></div>
+        <p class="hint mono" id="sqlMeta"></p>
+      </div>
+    </div>
+
+    <div class="demo" data-demo="evo">
+      <div class="evo-grid">
+        <div class="evo-main">
+          <div class="toolbar">
+            <div class="seg" role="group" aria-label="Track"><button data-evo-track="velocity">Velocity</button><button data-evo-track="harbour" class="on">Harbour</button><button data-evo-track="rosewood">Rosewood</button></div>
+            <div class="seg" role="group" aria-label="Simulation speed"><button data-evo-speed="1" class="on">1×</button><button data-evo-speed="5">5×</button><button data-evo-speed="20">20×</button></div>
+          </div>
+          <canvas id="evoCanvas" class="track-canvas" aria-label="Population of AI cars learning to drive around a track" role="img"></canvas>
+          <div class="stats"><div><small>Generation</small><b id="evoGen">1</b></div><div><small>Alive</small><b id="evoAlive">–</b></div><div><small>Best</small><b id="evoBest">0%</b></div><div><small>Best lap</small><b id="evoLap">—</b></div></div>
+        </div>
+        <div class="evo-side">
+          <div class="mini-card"><h3 class="mini">Leader's brain</h3><canvas id="nnCanvas" class="nn-canvas" role="img" aria-label="Live neural network of the leading car"></canvas><p class="legend"><i class="pos"></i> positive <i class="neg"></i> negative weight</p></div>
+          <div class="mini-card"><h3 class="mini">Learning curve</h3><canvas id="fitChart" class="chart-canvas" role="img" aria-label="Best and average fitness per generation"></canvas><p class="legend"><i class="pos"></i> best <i class="mean"></i> average</p></div>
+          <div class="mini-card controls">
+            <label>Mutation rate <output id="evoMutVal">10%</output><input type="range" id="evoMut" min="1" max="40" value="10"></label>
+            <label>Population <output id="evoPopVal">50</output><input type="range" id="evoPop" min="10" max="120" step="10" value="50"></label>
+            <label class="check"><input type="checkbox" id="evoKeep"> Keep brains when switching tracks</label>
+            <div class="row-btns"><button class="btn red sm" id="evoPlay">Start</button><button class="btn ghost sm" id="evoReset">New population</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo" data-demo="setup">
+      <div class="evo-grid">
+        <div class="evo-main">
+          <div class="seg full" role="group" aria-label="Track"><button data-sim-track="velocity" class="on">Velocity Park</button><button data-sim-track="harbour">Harbour Loop</button><button data-sim-track="rosewood">Rosewood</button></div>
+          <div class="map-wrap"><canvas id="simMap" class="track-canvas" role="img" aria-label="Track map coloured by simulated speed"></canvas><span class="pill mono" id="simLive">0 km/h</span></div>
+          <p class="hint"><b id="simTrackName">Velocity Park</b>: <span id="simTrackBlurb"></span></p>
+          <div class="mini-card"><h3 class="mini">Speed trace</h3><canvas id="simTrace" class="wide-canvas" role="img" aria-label="Speed around the lap"></canvas></div>
+        </div>
+        <div class="evo-side">
+          <div class="mini-card controls">
+            <label>Downforce <output id="dfVal"></output><input type="range" id="dfSlider" min="0" max="100" value="50"></label>
+            <div class="seg tires" role="group" aria-label="Tire compound"><button data-compound="soft"><i class="tire soft"></i>Soft</button><button data-compound="medium" class="on"><i class="tire medium"></i>Medium</button><button data-compound="hard"><i class="tire hard"></i>Hard</button></div>
+            <label>Fuel <output id="fuelVal"></output><input type="range" id="fuelSlider" min="0" max="110" value="50"></label>
+            <div class="result"><small>Predicted lap</small><b class="mono" id="simLap">–</b><span id="simGap" class="gap"></span></div>
+            <div class="mini-stats"><div><small>Top</small><b id="simTop">–</b><small>km/h</small></div><div><small>Slowest</small><b id="simMin">–</b><small>km/h</small></div><div><small>Avg</small><b id="simAvg">–</b><small>km/h</small></div></div>
+            <button class="btn red sm" id="optBtn">⚡ Find optimal setup</button>
+          </div>
+          <div class="mini-card"><h3 class="mini">Lap time vs. downforce</h3><canvas id="simSweep" class="wide-canvas" role="img" aria-label="Lap time for each downforce level and tire"></canvas><p class="legend"><i class="pos"></i> soft <i class="med"></i> medium <i class="mean"></i> hard <i class="you"></i> you</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="demo" data-demo="books">
+      <div class="library">
+        <div class="shelf-wrap"><div class="shelf" id="shelf" role="list"></div><div class="plank" aria-hidden="true"></div></div>
+        <article class="book-page" id="bookPage" aria-live="polite"></article>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ TITLE MODAL ============ -->
+  <div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="m-card">
+      <button class="m-close" id="mClose" aria-label="Close">✕</button>
+      <div class="m-banner">
+        <div class="m-art" id="mBanner"></div>
+        <div class="m-fade"></div>
+        <div class="m-head">
+          <p class="m-kind"><span class="badge-lg">MV</span><span id="mKind"></span></p>
+          <h2 id="mTitle"></h2>
+          <div class="m-btns">
+            <button class="btn play" id="mPlay">▶ <span id="mPlayLabel">Play</span></button>
+            <button class="round lg" id="mList" aria-label="Add to My List">+</button>
+            <button class="round lg" id="mLike" aria-label="Like">👍</button>
+          </div>
+        </div>
+      </div>
+      <div class="m-body">
+        <div class="m-cols">
+          <div><p class="m-meta" id="mMeta"></p><p class="m-desc" id="mDesc"></p><div class="m-links" id="mLinks"></div></div>
+          <div class="m-side"><p><span>Cast:</span> <b id="mCast"></b></p><p><span>Genres:</span> <b id="mGenres"></b></p></div>
+        </div>
+        <div class="m-demo-wrap" id="mDemoWrap"><h3><span class="dot"></span> Now playing</h3><div id="mDemo"></div></div>
+        <div class="m-episodes" id="mEpisodes"></div>
+        <div id="mMoreWrap"><h3>More Like This</h3><div class="m-more" id="mMore"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ STILL WATCHING ============ -->
+  <div class="still" id="still" hidden role="dialog" aria-modal="true" aria-labelledby="stillTitle">
+    <div class="still-card">
+      <h2 id="stillTitle">Are you still watching, <span id="stillWho">Recruiter</span>?</h2>
+      <p>The next episode could be a Summer 2027 co-op 👀</p>
+      <div class="still-btns">
+        <button class="btn play" id="stillYes">Continue watching</button>
+        <a class="btn info" href="mailto:mvasudevan@torontomu.ca?subject=Summer%202027%20co-op">Email Mithusa</a>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <!-- ============ TORQUE (transforming chat bot) ============ -->
+  <button class="torque" id="torque" aria-label="Chat with Torque, the transforming car bot" aria-expanded="false" aria-controls="chat">
+    <span class="tf-holder"></span>
+    <span class="torque-tip">Psst! I transform. Ask me anything 🤖</span>
+  </button>
+  <section class="chat" id="chat" hidden aria-label="Chat with Torque">
+    <header class="chat-head">
+      <span class="torque-face" aria-hidden="true"></span>
+      <div><b>Torque</b><small>Mithusa's pit bot · transforms on demand</small></div>
+      <button class="chat-close" id="chatClose" aria-label="Close chat">✕</button>
+    </header>
+    <div class="chat-log" id="chatLog" aria-live="polite"></div>
+    <div class="chips">
+      <button data-ask="What are you working on right now?">Current work</button>
+      <button data-ask="Is Mithusa looking for a co-op?">Co-op?</button>
+      <button data-ask="What are your favourite films?">Favourite films</button>
+      <button data-ask="Do you like photography?">Photography</button>
+      <button data-ask="What are you, Torque?">Who are you?</button>
+    </div>
+    <form class="chat-form" id="chatForm" autocomplete="off">
+      <label class="sr" for="chatInput">Ask Torque</label>
+      <input id="chatInput" placeholder="Ask about projects, skills, films…" maxlength="200">
+      <button class="btn red sm" type="submit">Send</button>
+    </form>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.12.0/sql-wasm.js"></script>
+  <script src="js/graphics.js"></script>
+  <script src="js/tracks.js"></script>
+  <script src="js/lapsim.js"></script>
+  <script src="js/titles.js"></script>
+  <script src="js/books.js"></script>
+  <script src="js/sqltile.js"></script>
+  <script src="js/arm.js"></script>
+  <script src="js/evolve.js"></script>
+  <script src="js/pitlab.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/follower.js"></script>
+</body>
+</html>
